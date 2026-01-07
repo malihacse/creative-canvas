@@ -1,0 +1,94 @@
+services:
+  # MySQL Database
+  db:
+    image: mysql:8.0
+    container_name: creative-canvas-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: creative_canvas
+      MYSQL_USER: creative_user
+      MYSQL_PASSWORD: creative_pass
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./backend/config/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    networks:
+      - creative-canvas-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  # Backend API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: creative-canvas-backend
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 5000
+      DB_HOST: db
+      DB_USER: creative_user
+      DB_PASSWORD: creative_pass
+      DB_NAME: creative_canvas
+      JWT_SECRET: your-super-secret-jwt-key-change-this-in-production
+      UPLOAD_PATH: ./uploads
+    ports:
+      - "5001:5000"
+    volumes:
+      - ./backend/uploads:/app/uploads
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - creative-canvas-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Frontend React App
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: creative-canvas-frontend
+    restart: unless-stopped
+    environment:
+      VITE_API_URL: http://localhost:5000/api
+    ports:
+      - "5174:5173"
+    depends_on:
+      - backend
+    networks:
+      - creative-canvas-network
+
+  # Nginx Reverse Proxy (Optional - for production)
+  nginx:
+    image: nginx:alpine
+    container_name: creative-canvas-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - creative-canvas-network
+    profiles:
+      - production
+
+volumes:
+  db_data:
+    driver: local
+
+networks:
+  creative-canvas-network:
+    driver: bridge

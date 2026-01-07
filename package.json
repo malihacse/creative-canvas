@@ -1,0 +1,40 @@
+{
+  "name": "creative-canvas",
+  "version": "1.0.0",
+  "description": "Full-stack photo editor with user authentication and project management",
+  "main": "index.js",
+  "scripts": {
+    "install:all": "npm run install:backend && npm run install:frontend",
+    "install:backend": "cd backend && npm install",
+    "install:frontend": "cd frontend && npm install",
+    "setup": "npm run install:all && npm run setup:db",
+    "setup:db": "cd backend && npm run setup:db",
+    "dev": "npm run dev:backend & npm run dev:frontend",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build": "cd frontend && npm run build",
+    "start": "npm run start:backend",
+    "start:backend": "cd backend && npm start",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:build": "docker-compose build",
+    "clean": "rm -rf backend/node_modules frontend/node_modules backend/uploads/*"
+  },
+  "keywords": [
+    "photo-editor",
+    "react",
+    "nodejs",
+    "mysql",
+    "canvas",
+    "fabricjs"
+  ],
+  "author": "",
+  "license": "ISC",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  }
+}
