@@ -1,4 +1,4 @@
-# 🎨 Creative Canvas - Full-Stack Photo Editor
+# Creative Canvas - Full-Stack Photo Editor
 
 A full-stack web application where users can create accounts, upload photos, edit them using basic tools, save projects, and reopen them later from a dashboard.
 
@@ -30,7 +30,7 @@ A full-stack web application where users can create accounts, upload photos, edi
 - Multer for file uploads
 - Sharp for image processing
 
-## 🚀 Quick Start
+## Quick Start
 
 Choose your preferred setup method:
 
@@ -103,31 +103,31 @@ mysql -u root -p -e "CREATE DATABASE creative_canvas;"
 mysql -u root -p creative_canvas < backend/config/schema.sql
 ```
 
-## ✨ Features
+## Features
 
-### 🎨 Photo Editor
+### Photo Editor
 - **Upload**: Drag & drop or browse images (max 10MB)
 - **Crop**: Interactive cropping with aspect ratio presets (1:1, 4:3, 16:9, etc.)
 - **Filters**: Brightness, contrast, saturation, hue, blur, grayscale, sepia
 - **Alignment**: Rotate (90°/180°/270°), flip horizontal/vertical, grid guides
 - **Drawing**: Freehand drawing tools with customizable brush color and size
 
-### 🖼️ Collage Editor
+### Collage Editor
 - **Templates**: Pre-defined layouts (2-6 images)
 - **Drag & Drop**: Easy image placement into templates
 - **Flexible**: Support for 2-10 images in various arrangements
 
-### 💾 Project Management
+### Project Management
 - **Save/Load**: Projects persist in MySQL database with JSON state storage
 - **Dashboard**: Grid view of saved projects with auto-generated thumbnails
 - **Versioning**: Projects maintain edit history and can be reopened anytime
 
-### 🔐 User System
+### User System
 - **Authentication**: Secure register/login with JWT tokens
 - **Security**: Password hashing with bcrypt, protected routes
 - **Privacy**: Projects are private per user account
 
-## 🐳 Docker Commands
+## Docker Commands
 
 ```bash
 # Start all services
@@ -146,7 +146,7 @@ docker-compose up -d --build
 docker-compose down -v
 ```
 
-## 🛠️ Development Scripts
+## Development Scripts
 
 ```bash
 # Full project setup
@@ -168,7 +168,7 @@ npm run build
 npm run clean
 ```
 
-## ⚙️ Environment Variables
+## Environment Variables
 
 ### Backend (.env)
 ```bash
@@ -197,7 +197,7 @@ MAX_FILE_SIZE=10485760
 VITE_API_URL=http://localhost:5000/api
 ```
 
-## 🔧 Troubleshooting
+## Troubleshooting
 
 ### Database Connection Issues
 ```bash
@@ -243,7 +243,7 @@ sudo chown -R $USER:$USER backend/uploads/
 sudo chmod 666 /var/run/docker.sock
 ```
 
-## 📋 API Endpoints
+## API Endpoints
 
 - `POST /api/auth/register` - User registration
 - `POST /api/auth/login` - User login
@@ -254,7 +254,7 @@ sudo chmod 666 /var/run/docker.sock
 - `DELETE /api/projects/:id` - Delete project
 - `POST /api/upload/image` - Upload image
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 maliha-se-project/
